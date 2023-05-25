@@ -1,1 +1,2 @@
-export const API="https://630dd315b37c364eb70c4e81.mockapi.io"
+// export const API="https://b37node.herokuapp.com"
+export const API="https://movies-api-rtht.onrender.com"

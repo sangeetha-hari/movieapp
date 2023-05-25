@@ -1,21 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { Container } from "reactstrap";
 import Button from "@mui/material/Button";
-// import AddMovielist from "./AddMovielist";
 import TextField from '@mui/material/TextField';
-// import Counter from "./Counter";
-// import INTIAL_MOVIE_LIST from "./data.json";
-// import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-// import { IconButton } from "@mui/material";
-// import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
-// import InfoIcon from '@mui/icons-material/Info';
-// import DeleteIcon from '@mui/icons-material/Delete';
-// import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-// import NotFound from "./NotFound";
+import { API } from "./gobal";
 
 
-export default function(props){
+export default function AddMovielist(props){
     const navigate= useNavigate();
     const [mname, setName] = useState("");
   const [mrate, setRate] = useState("");
@@ -35,15 +25,22 @@ export default function(props){
           onClick={() => {
             const newmovie = {
               name: mname,
-              poster:
-              mposter,
+              poster: mposter,
               rating: mrate,
-              summary:
-              msummary,
+              summary:msummary,
             };
+
             //Add  New movie to old list
-            props.setMovielist([...props.movielist, newmovie]);
-            navigate("/movies")
+            // props.setMovielist([...props.movielist, newmovie]);
+
+            fetch(`${API}/movies`,{
+              method:"POST",
+              body:JSON.stringify(newmovie),
+              headers:{"Content-Type": "application/json"}
+              
+            }).then((data)=>data.json())
+            .then(()=>navigate("/movies"))
+            
           }}
         >
           ADD Movie
